@@ -1,0 +1,8 @@
+# Real credentials — never commit. Copy secrets.example.h -> secrets.h and fill in.
+secrets.h
+
+# Arduino build output
+build/
+*.bin
+*.elf
+*.map
