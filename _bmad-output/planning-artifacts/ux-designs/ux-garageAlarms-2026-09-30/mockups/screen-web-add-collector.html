@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Добавить коллектор</title>
+<style>
+/* Governs: memlog decision «Добавление коллектора: веб работающей системы → «Добавить коллектор» → Web Bluetooth → код с наклейки → ключи автоматически»;
+   EXPERIENCE.md «Ввод узла › Коллектор (H2)» (одна колонка, одно действие на экран, счётчик окна виден всегда, «Код не подошёл, проверьте наклейку»),
+   Component Patterns «Счётчик окна ввода», Flow 3; DESIGN.md Layout (страницы ввода ≤ 480px), input / input-mobile 16px, button-primary/secondary,
+   countdown, panel, warn-banner, status-pill. Fallback panel: memlog assumption «статическая страница с доверенного HTTPS и вставка ключей». */
+:root{--bg:#0b1016;--surface:#111a24;--raised:#182433;--border:#243447;--text:#dce6f0;--text-2:#7f93a8;--accent:#22d3ee;--on-accent:#0b1016;
+--ok:#34d399;--warn:#fbbf24;--critical:#ff1f4b;--fault:#c084fc;--info:#60a5fa;--focus:#67e8f9;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:#05080c;color:var(--text);font:400 14px/1.45 var(--sans);padding:24px 16px}
+.row{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;align-items:flex-start}
+.cap{color:var(--text-2);font-size:12px;margin:0 0 8px}
+.phone{width:360px;max-width:100%;border:1px solid var(--border);border-radius:24px;overflow:hidden;background:var(--bg)}
+.bar{background:var(--raised);padding:6px 12px;font:12px var(--mono);color:var(--text-2);border-bottom:1px solid var(--border)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2)}
+.top a{color:var(--accent);text-decoration:none}
+.body{padding:16px;display:flex;flex-direction:column;gap:14px;min-height:470px}
+h1{font-size:22px;font-weight:700;line-height:1.25;margin:0}
+.step{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2)}
+ol{margin:0;padding-left:20px}ol li{margin-bottom:6px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:6px;font-weight:600;font-size:15px;text-decoration:none}
+.pri{background:var(--accent);color:var(--on-accent)}
+.sec{background:var(--raised);color:var(--text);border:1px solid var(--border)}
+.cd{font:13px var(--mono);color:var(--warn)}
+.label{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2);display:block;margin-bottom:4px}
+.input{background:var(--bg);border:1px solid var(--border);border-radius:6px;min-height:44px;padding:10px 12px;font:16px var(--mono);color:var(--text);letter-spacing:.12em}
+.input.focus{outline:2px solid var(--focus);outline-offset:0}
+.hint{color:var(--text-2);font-size:12px;margin-top:4px}
+.pill{display:inline-block;border:1px solid currentColor;border-radius:10px;font-size:11px;font-weight:600;letter-spacing:.04em;padding:0 7px}
+.ok{color:var(--ok)}.info{color:var(--info)}
+.dev{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mono{font-family:var(--mono);font-size:13px}.s2{color:var(--text-2)}
+.okbig{font-size:17px;font-weight:600;line-height:1.3}
+.warn{background:color-mix(in srgb,var(--warn) 12%,var(--surface));border:1px solid var(--warn);border-radius:6px;padding:10px 12px;font-size:13px}
+.note{width:420px;max-width:100%}
+.note h2{font-size:17px;font-weight:600;margin:0 0 8px}
+.note p{margin:0 0 8px}
+.spacer{flex:1}
+</style></head><body>
+<div class="row">
+
+<section><p class="cap">Шаг 1 · из веба работающей системы (Узлы → «Добавить коллектор»)</p>
+<div class="phone"><div class="bar">https://192.168.1.41 · узел-коридор</div>
+ <div class="top"><a href="#">‹ Узлы</a><span>узел-коридор · ведомый</span></div>
+ <div class="body">
+  <span class="step">Шаг 1 из 4</span><h1>Добавить коллектор</h1>
+  <ol><li>Подключите питание коллектора.</li><li>Нажмите кнопку ввода на коллекторе — светодиод замигает синим.</li><li>Держите телефон рядом, не дальше 2 м.</li></ol>
+  <p class="s2" style="margin:0">Окно ввода на коллекторе открыто 5 минут после нажатия.</p>
+  <div class="spacer"></div>
+  <a class="btn pri" href="#">Найти коллектор</a>
+  <p class="hint" style="margin:0">На iPhone откройте эту страницу в Bluefy — Safari не поддерживает Bluetooth.</p>
+ </div></div></section>
+
+<section><p class="cap">Шаг 2 · после системного выбора устройства</p>
+<div class="phone"><div class="bar">https://192.168.1.41 · узел-коридор</div>
+ <div class="top"><a href="#">‹ Назад</a><span>окно ввода <span class="cd">04:21</span></span></div>
+ <div class="body">
+  <span class="step">Шаг 2 из 4</span><h1>Коллектор найден</h1>
+  <div class="panel"><div class="dev"><div><b>Коллектор H2</b><div class="mono s2">EUI 7C:DF:A1:FF:FE:3B:90:12</div></div><span class="pill ok">на связи</span></div>
+   <div class="hint">Каналов: 3 · прошивка <span class="mono">2.0.1</span></div></div>
+  <p class="s2" style="margin:0">Проверьте, что EUI совпадает с наклейкой на корпусе.</p>
+  <div class="spacer"></div>
+  <a class="btn pri" href="#">Далее</a><a class="btn sec" href="#">Другое устройство</a>
+ </div></div></section>
+
+<section><p class="cap">Шаг 3 · код с наклейки (и ошибка поля ниже)</p>
+<div class="phone"><div class="bar">https://192.168.1.41 · узел-коридор</div>
+ <div class="top"><a href="#">‹ Назад</a><span>окно ввода <span class="cd">03:48</span></span></div>
+ <div class="body">
+  <span class="step">Шаг 3 из 4</span><h1>Код с наклейки</h1>
+  <div><label class="label" for="c">Код</label><div class="input focus" id="c">K7Q2-9MXA</div>
+   <div class="hint">8 символов, на наклейке под штрихкодом.</div></div>
+  <div><label class="label">Имя (необязательно)</label><div class="input" style="font-family:var(--sans);letter-spacing:0">подвал-1</div></div>
+  <div><label class="label">Зона (необязательно)</label><div class="input" style="font-family:var(--sans);letter-spacing:0">Подвал ▾</div></div>
+  <div style="border:1px solid var(--critical);border-radius:6px;padding:8px 10px;font-size:13px">Пример ошибки: «Код не подошёл, проверьте наклейку.»</div>
+  <div class="spacer"></div>
+  <a class="btn pri" href="#">Подключить</a>
+ </div></div></section>
+
+<section><p class="cap">Шаг 4 · готово</p>
+<div class="phone"><div class="bar">https://192.168.1.41 · узел-коридор</div>
+ <div class="top"><a href="#">‹ Узлы</a><span>узел-коридор · ведомый</span></div>
+ <div class="body">
+  <span class="step">Шаг 4 из 4</span><h1>Готово</h1>
+  <div class="panel"><p class="okbig ok" style="margin:0 0 6px">✅ Коллектор подвал-1 в сети · ключи переданы</p>
+   <p class="s2" style="margin:0">Зона: Подвал · каналов: 3, все пока без имени.</p></div>
+  <div class="panel"><span class="pill info">без имени</span> <span class="mono">ch1 · DS18B20</span><br>
+   <span class="pill info">без имени</span> <span class="mono">ch2 · контакт</span><br>
+   <span class="pill info">без имени</span> <span class="mono">ch3 · контакт</span></div>
+  <div class="spacer"></div>
+  <a class="btn pri" href="#">Назвать каналы в «Датчиках»</a><a class="btn sec" href="#">Добавить ещё коллектор</a>
+ </div></div></section>
+
+<aside class="note"><p class="cap">Запасной путь (если Web Bluetooth не работает на странице с самоподписанным сертификатом)</p>
+ <div class="panel"><h2>Bluetooth недоступен на этой странице</h2>
+  <p>Браузер не даёт Bluetooth странице с сертификатом узла. Ключи можно передать через страницу ввода с доверенным адресом.</p>
+  <p><a class="btn sec" href="#">Скопировать ключи</a></p>
+  <div class="warn">Ключи сети — секрет. Вставляйте их только на страницу ввода.</div>
+  <p style="margin-top:10px">Затем откройте страницу ввода коллектора (адрес не утверждён) в Chrome или Bluefy, нажмите «Найти коллектор», вставьте ключи и введите код с наклейки.</p>
+ </div></aside>
+
+</div></body></html>
