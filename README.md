@@ -18,7 +18,7 @@
 
 <p align="center">
   <b>➡️ garageAlarms 2.0 — the hubless network that replaces this box — now lives in
-  <a href="https://github.com/Lindenson/garageAlarms2.0">Lindenson/garageAlarms2.0</a></b><br>
+  <a href="https://github.com/wol-micro/garageAlarms2.0">wol-micro/garageAlarms2.0</a></b><br>
   intent, concept, architecture, UX, roadmap and all planning documents are there.
 </p>
 
